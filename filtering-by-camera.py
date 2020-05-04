@@ -116,18 +116,18 @@ while(True):
     # Show filtered images
     # num = input('Enter the number which type of filter you want:')
     cv2.imshow('frame', frame)
-    if cv2.waitKey(20) & 0xFF == ord('a'):
-        cv2.imshow('hue_sat', hue_sat)
-    if cv2.waitKey(20) & 0xFF == ord('s'):
-        cv2.imshow('sepia', sepia)
+    # if cv2.waitKey(20) & 0xFF == ord('a'):
+    cv2.imshow('hue_sat', hue_sat)
+    # if cv2.waitKey(20) & 0xFF == ord('s'):
+    cv2.imshow('sepia', sepia)
     # if cv2.waitKey(20) & 0xFF == ord('d'):
-    #     cv2.imshow('color_overlay', color_overlay)
+    cv2.imshow('color_overlay', color_overlay)
     # if cv2.waitKey(20) & 0xFF == ord('f'):
-    #     cv2.imshow('invert', invert)
+    cv2.imshow('invert', invert)
     # if cv2.waitKey(20) & 0xFF == ord('g'):
-    #     cv2.imshow('blur_mask', blur_mask)
+    cv2.imshow('blur_mask', blur_mask)
     # if cv2.waitKey(20) & 0xFF == ord('h'):
-    #     cv2.imshow('portrait', portrait)
+    cv2.imshow('portrait', portrait)
 
     if cv2.waitKey(20) & 0xFF == ord('q'):
         break

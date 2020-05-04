@@ -1,1 +1,5 @@
-saved_media
+saved-media
+
+*.jpg
+
+*.pyc
