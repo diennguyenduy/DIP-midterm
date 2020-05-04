@@ -114,20 +114,38 @@ while(True):
     portrait = portrait_mode(frame.copy())
 
     # Show filtered images
-    # num = input('Enter the number which type of filter you want:')
     cv2.imshow('frame', frame)
-    # if cv2.waitKey(20) & 0xFF == ord('a'):
     cv2.imshow('hue_sat', hue_sat)
-    # if cv2.waitKey(20) & 0xFF == ord('s'):
     cv2.imshow('sepia', sepia)
-    # if cv2.waitKey(20) & 0xFF == ord('d'):
     cv2.imshow('color_overlay', color_overlay)
-    # if cv2.waitKey(20) & 0xFF == ord('f'):
     cv2.imshow('invert', invert)
-    # if cv2.waitKey(20) & 0xFF == ord('g'):
     cv2.imshow('blur_mask', blur_mask)
-    # if cv2.waitKey(20) & 0xFF == ord('h'):
     cv2.imshow('portrait', portrait)
+
+    pressed = cv2.waitKey(20)
+    pressed = pressed % 256
+    img_counter = 0
+
+    if pressed == 48:  # 0 pressed
+        img_counter += 1
+        img_name = "hue_sat.png".format(img_counter)
+        cv2.imwrite(img_name, hue_sat)  # Cap image in blur_mask filter
+        print("{} written!".format(img_name))
+    elif pressed == 49:
+        img_counter += 1
+        img_name = "sepia.png".format(img_counter)
+        cv2.imwrite(img_name, sepia)  # Cap image in blur_mask filter
+        print("{} written!".format(img_name))
+    elif pressed == 50:
+        img_counter += 1
+        img_name = "color_overlay.png".format(img_counter)
+        cv2.imwrite(img_name, color_overlay)  # Cap image in blur_mask filter
+        print("{} written!".format(img_name))
+    elif pressed == 51:
+        img_counter += 1
+        img_name = "invert.png".format(img_counter)
+        cv2.imwrite(img_name, invert)  # Cap image in blur_mask filter
+        print("{} written!".format(img_name))
 
     if cv2.waitKey(20) & 0xFF == ord('q'):
         break
