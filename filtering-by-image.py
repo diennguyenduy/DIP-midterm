@@ -1,7 +1,6 @@
 import cv2
 import time
 import numpy as np
-# import matplotlib.pyplot as plt
 from scipy.interpolate import UnivariateSpline
 
 
@@ -27,7 +26,7 @@ width = img.shape[1]
 for i in range(1, len(dict_1)+1):
     print(i, '. ', dict_1.get(i))
 while(True):
-    num = input('Enter the number which type of image you want:')
+    num = input('Enter the number which type of image you want: ')
     cv2.imshow('image', img)
     if num == '1':
         # through thresholding we will try to provide the value the value through which we can put below the particular value we assign the value 0 and above it will be white.
@@ -90,14 +89,14 @@ while(True):
     # elif num == '14':
     # elif num == '15':
     else:
-        print('invalid input')
+        print('invalid input!')
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-    save = input('Do you want to save?y/n')
+    save = input('Do you want to save?(y/n) ')
     if save == 'y':
-        file = input('Enter the image name to be saved')
+        file = input('Enter the image name to be saved: ')
         cv2.imwrite(file+'.jpg', img1)
         break
     else:
