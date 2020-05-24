@@ -1,21 +1,31 @@
 import cv2
 import time
 import numpy as np
+# import matplotlib.pyplot as plt
+from scipy.interpolate import UnivariateSpline
+
+
+def spreadLookupTable(x, y):
+    spline = UnivariateSpline(x, y)
+    return spline(range(256))
+
 
 path = (input("Enter the Path of File:"))
 img = cv2.imread(path, 1)
 
 dict_1 = {
     1: 'Binary image',
-    2: 'Detecting the edge of image',
+    2: 'Canny edge detection',
     3: 'Focus circle blur',
-    4: 'Face Detection'
+    4: 'Stylization Filter',
+    5: 'Sepia Filter',
+    6: 'Warming Filter',
 }
 
 height = img.shape[0]
 width = img.shape[1]
 for i in range(1, len(dict_1)+1):
-    print(i, '.', dict_1.get(i))
+    print(i, '. ', dict_1.get(i))
 while(True):
     num = input('Enter the number which type of image you want:')
     cv2.imshow('image', img)
@@ -46,14 +56,39 @@ while(True):
         cv2.imshow('focus', frame)
         img1 = frame
     elif num == '4':
-        face_cascade = cv2.CascadeClassifier(
-            "haarcascade_frontalface_default.xml")
-        gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        faces = face_cascade.detectMultiScale(
-            gray_img, scaleFactor=1.06, minNeighbors=6)
-        for x, y, w, h in faces:
-            img1 = cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 3)
-            cv2.imshow("Gray", img1)
+        replaced_image = cv2.stylization(img, sigma_s=50, sigma_r=0.05)
+        cv2.imshow("Stylization Filter", replaced_image)
+        img1 = replaced_image
+    elif num == '5':
+        kernel = np.array([[0.272, 0.534, 0.131],
+                           [0.349, 0.686, 0.168],
+                           [0.393, 0.769, 0.189]])
+        replaced_image = cv2.filter2D(img, -1, kernel)
+        cv2.imshow("Sepia Filter", replaced_image)
+        img1 = replaced_image
+    elif num == '6':
+        increaseLookupTable = spreadLookupTable(
+            [0, 64, 128, 256], [0, 80, 160, 256])
+        decreaseLookupTable = spreadLookupTable(
+            [0, 64, 128, 256], [0, 50, 100, 256])
+        red_channel, green_channel, blue_channel = cv2.split(img)
+        red_channel = cv2.LUT(
+            red_channel, increaseLookupTable).astype(np.uint8)
+        blue_channel = cv2.LUT(
+            blue_channel, decreaseLookupTable).astype(np.uint8)
+        replaced_image = cv2.merge((red_channel, green_channel, blue_channel))
+
+        cv2.imshow("Warming Filter", replaced_image)
+        img1 = replaced_image
+    # elif num == '7':
+    # elif num == '8':
+    # elif num == '9':
+    # elif num == '10':
+    # elif num == '11':
+    # elif num == '12':
+    # elif num == '13':
+    # elif num == '14':
+    # elif num == '15':
     else:
         print('invalid input')
 

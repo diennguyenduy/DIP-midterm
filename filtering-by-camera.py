@@ -10,7 +10,7 @@ import cv2
 cap = cv2.VideoCapture(0)
 
 frames_per_seconds = 20
-save_path = 'saved-media/filter.avi'
+save_path = 'saved-media/filter.mp4'
 config = CFEVideoConf(cap, filepath=save_path, res='480p')
 out = cv2.VideoWriter(save_path, config.video_type,
                       frames_per_seconds, config.dims)
